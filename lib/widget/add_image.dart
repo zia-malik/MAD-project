@@ -62,7 +62,6 @@ class _AddImageState extends State<AddImage> {
                   ),
                   SizedBox(
                     height: 20,
-                    width:0
                   )
                 ],
               ),
