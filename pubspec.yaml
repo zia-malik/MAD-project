@@ -1,0 +1,33 @@
+name: firebase_upload_example
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  cloud_firestore: ^3.1.5
+  provider: ^6.0.2
+  path_provider: ^2.0.8
+  firebase_auth: ^3.3.4
+  flutter_spinkit: ^5.1.0
+  # upload file to firebase
+  firebase_core: ^1.0.3
+  firebase_storage: ^8.0.3
+  image_picker: ^0.8.4+4
+
+  # pick file
+  file_picker: ^3.0.1
+  transparent_image: ^2.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
