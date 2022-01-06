@@ -15,7 +15,7 @@ class UploadButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: Colors.grey.shade800,
+          primary: Colors.blueGrey.shade800,
       //    minimumSize: Size.fromHeight(50),
         ),
         child: buildContent(),
@@ -25,7 +25,7 @@ class UploadButtonWidget extends StatelessWidget {
   Widget buildContent() => Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.cloud_upload_outlined, size: 25,color: Colors.grey.shade400,),
+          Icon(Icons.cloud_upload_outlined, size: 25,color: Colors.white,),
           SizedBox(width: 10),
         ],
       );

@@ -25,20 +25,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade900,
+      backgroundColor: Colors.blueGrey.shade900,
       appBar: AppBar(
-        backgroundColor: Colors.grey.shade800,
+        backgroundColor: Colors.blueGrey.shade800,
         title: Text(
           MyApp.title,
-          style: TextStyle(color: Colors.grey.shade400),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.grey.shade800,
+        backgroundColor: Colors.blueGrey.shade800,
         child: Icon(
           Icons.add,
-          color: Colors.grey.shade400,
+          color: Colors.white,
         ),
         onPressed: () {
           Navigator.of(context)
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    buildHeader(files.length),
+                    buildHeader(files.length,),
                     const SizedBox(height: 12,),
                     Expanded(
                       child: ListView.builder(

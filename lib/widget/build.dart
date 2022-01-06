@@ -17,7 +17,7 @@ Widget buildFile(BuildContext context, FirebaseFile file) => ListTile(
           style: TextStyle(
             fontWeight: FontWeight.bold,
             decoration: TextDecoration.underline,
-            color: Colors.grey.shade400,
+            color: Colors.white,
           ),
         ),
         onTap: () => Navigator.of(context).push(MaterialPageRoute(
@@ -26,7 +26,7 @@ Widget buildFile(BuildContext context, FirebaseFile file) => ListTile(
       );
 
   Widget buildHeader(int length) => ListTile(
-        tileColor: Colors.grey.shade700,
+        tileColor: Colors.blueGrey.shade700,
         leading: Container(
           width: 52,
           height: 52,

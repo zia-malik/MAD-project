@@ -47,8 +47,15 @@ class _PasswordFormFieldState extends State<PasswordFormField> {
           ),
         ),
       ),
-      validator: (val) =>
-          val!.length < 6 ? 'Enter a password with atleast 6 characters' : null,
+      validator: (val) {
+        RegExp regex = new RegExp(r'^.{6,}$');
+          if (val!.isEmpty) {
+            return ("Password is required for login");
+          }
+          if (!regex.hasMatch(val)) {
+            return ("Enter Valid Password(Min. 6 Character)");
+          }
+      },
       obscureText: visibility,
     );
   }

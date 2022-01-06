@@ -20,12 +20,12 @@ class _AddImageState extends State<AddImage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey.shade900,
+        backgroundColor: Colors.blueGrey.shade900,
         appBar: AppBar(
-          backgroundColor: Colors.grey.shade800,
+          backgroundColor: Colors.blueGrey.shade800,
           title: Text(
             'Add Image',
-            style: TextStyle(color: Colors.grey.shade400),
+            style: TextStyle(color: Colors.white),
           ),
           actions: [
             UploadButtonWidget(
@@ -55,6 +55,8 @@ class _AddImageState extends State<AddImage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  task != null ? buildUploadStatus(task!) : Container(),
+                  SizedBox(height: 50,),
                   ButtonWidget(
                     text: 'Select File',
                     icon: Icons.attach_file,
@@ -71,8 +73,8 @@ class _AddImageState extends State<AddImage> {
   }
 
   Future selectFile() async {
+    
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
-
     if (result == null) return;
     final path = result.files.single.path!;
     setState(){

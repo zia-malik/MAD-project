@@ -2,6 +2,8 @@ import 'package:firebase_upload_example/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_upload_example/shared/email_form_field.dart';
 import 'package:firebase_upload_example/shared/password_form_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 //import 'package:coffee/screens/authenticate/register.dart';
@@ -19,6 +21,11 @@ class _SignIState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+
+  // firebase
+  final _auth = FirebaseAuth.instance;
+  // string for displaying the error Message
+  String? errorMessage;
 
   @override
   void dispose() {
@@ -60,18 +67,20 @@ class _SignIState extends State<SignIn> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                 // Opacity(opacity: 0.2,child: SizedBox(height: 200,child: Image.asset("assets/vector.png"),),),
+                 SizedBox(height: 10,),
                   Text(
                     'Sign In',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'OpenSans',
-                      fontSize: 35.0,
+                      fontSize: 40.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(
-                    height: 30.0,
+                    height: 40.0,
                   ),
                   Form(
                     key: _formKey,
@@ -85,7 +94,7 @@ class _SignIState extends State<SignIn> {
                           controller: _emailController,
                         ),
                         SizedBox(
-                          height: 20.0,
+                          height: 30.0,
                         ),
                         PasswordFormField(
                           controller: _passwordController,
@@ -94,7 +103,7 @@ class _SignIState extends State<SignIn> {
                     ),
                   ),
                   SizedBox(
-                    height: 20.0,
+                    height: 40.0,
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 25.0),
@@ -116,7 +125,8 @@ class _SignIState extends State<SignIn> {
                             fontFamily: 'OpenSans'),
                       ),
                       onPressed: () async {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                        signIn(_emailController.text, _passwordController.text);
+                       // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
                         // if (_formKey.currentState.validate()) {
                         //   dynamic result =
                         //       await _auth.signInWithEmailAndPassword(
@@ -168,5 +178,45 @@ class _SignIState extends State<SignIn> {
         ],
       ),
     );
+  }
+  // login function
+  void signIn(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await _auth
+            .signInWithEmailAndPassword(email: email, password: password)
+            .then((uid) => {
+                  Fluttertoast.showToast(msg: "Login Successful"),
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => HomePage())),
+                });
+      } on FirebaseAuthException catch (error) {
+        switch (error.code) {
+          case "invalid-email":
+            errorMessage = "Your email address appears to be malformed.";
+
+            break;
+          case "wrong-password":
+            errorMessage = "Your password is wrong.";
+            break;
+          case "user-not-found":
+            errorMessage = "User with this email doesn't exist.";
+            break;
+          case "user-disabled":
+            errorMessage = "User with this email has been disabled.";
+            break;
+          case "too-many-requests":
+            errorMessage = "Too many requests";
+            break;
+          case "operation-not-allowed":
+            errorMessage = "Signing in with Email and Password is not enabled.";
+            break;
+          default:
+            errorMessage = "An undefined Error happened.";
+        }
+        Fluttertoast.showToast(msg: errorMessage!);
+        print(error.code);
+      }
+    }
   }
 }
